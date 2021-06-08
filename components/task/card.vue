@@ -3,13 +3,23 @@
     <v-card-title>
       {{ taskcp.subject }}
       <v-spacer></v-spacer>
-      <v-chip label color="error">Belum mengerjakan</v-chip>
+      <v-chip v-if="taskcp.is_done == 1" label color="success"
+        >Sudah Mengerjakan</v-chip
+      >
+      <v-chip v-else label color="error">Belum Mengerjakan</v-chip>
     </v-card-title>
     <v-divider></v-divider>
     <v-card-text>
       <center>
         <img
-          :src="taskcp.attachment_file | image_thumb"
+          v-if="taskcp.type_file == 'pdf'"
+          src="/icon-file/pdf.png"
+          alt=""
+          style="width: 30%"
+        />
+        <img
+          v-if="taskcp.type_file == 'image'"
+          src="/icon-file/image.png"
           alt=""
           style="width: 30%"
         />
@@ -29,7 +39,13 @@
           </div>
         </v-col>
         <v-col cols="12" md="6" sm="6">
-          <v-btn style="float: right" color="primary" outlined>Detail</v-btn>
+          <v-btn
+            style="float: right"
+            color="primary"
+            outlined
+            @click="to_detail(taskcp.id)"
+            >Detail</v-btn
+          >
         </v-col>
       </v-row>
     </v-card-actions>
@@ -40,16 +56,6 @@ const moment = require('moment')
 moment.locale('id')
 export default {
   filters: {
-    image_thumb(value) {
-      if (!value) return ''
-      value = value.toString()
-      const extensi = value.split('.').pop()
-      if (extensi === 'pdf') {
-        return '/icon-file/pdf.png'
-      } else if (extensi === 'png') {
-        return '/icon-file/image.png'
-      }
-    },
     waktu(value) {
       if (!value) return ''
       value = value.toString()
@@ -60,6 +66,11 @@ export default {
     taskcp: {
       type: Object,
       required: true,
+    },
+  },
+  methods: {
+    to_detail(id) {
+      this.$router.push('/task/' + id)
     },
   },
 }

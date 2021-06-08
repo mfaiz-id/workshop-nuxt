@@ -80,6 +80,11 @@ export default {
           title: 'Inspire',
           to: '/inspire',
         },
+        {
+          icon: 'mdi-format-list-bulleted',
+          title: 'Task',
+          to: '/task',
+        },
       ],
       miniVariant: false,
       right: true,
