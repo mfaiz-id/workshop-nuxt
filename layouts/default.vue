@@ -89,3 +89,11 @@ export default {
   },
 }
 </script>
+<style>
+@media (min-width: 1264px) {
+  .container {
+    max-width: 100%;
+    padding: 17px;
+  }
+}
+</style>
