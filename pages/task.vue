@@ -1,14 +1,8 @@
 <template>
   <div>
     <v-row>
-      <v-col cols="12" md="3">
-        <card-task></card-task>
-      </v-col>
-      <v-col cols="12" md="3">
-        <card-task></card-task>
-      </v-col>
-      <v-col cols="12" md="3">
-        <card-task></card-task>
+      <v-col v-for="(task, index) in tasks" :key="index" cols="12" md="4">
+        <card-task :taskcp="task"></card-task>
       </v-col>
     </v-row>
   </div>
@@ -18,6 +12,31 @@ import Card from '@/components/task/card.vue'
 export default {
   components: {
     'card-task': Card,
+  },
+  data() {
+    return {
+      keyword: '',
+      tasks: [],
+    }
+  },
+  created() {
+    this.get_task()
+  },
+  methods: {
+    async get_task() {
+      await this.$axios
+        .$get('/task', {
+          params: {
+            keyword: this.keyword,
+          },
+        })
+        .then((x) => {
+          if (x.success === true) {
+            this.tasks = x.data
+          }
+        })
+        .catch((err) => console.log(err))
+    },
   },
 }
 </script>
