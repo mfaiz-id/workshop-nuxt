@@ -46,19 +46,28 @@
           </v-card-text>
           <v-divider></v-divider>
           <v-card-actions>
-            <v-btn v-if="!is_done" color="primary" block
+            <v-btn
+              v-if="!is_done"
+              color="primary"
+              block
+              @click="kumpulkan_tugas"
               >Kumpulkan Jawaban</v-btn
             >
           </v-card-actions>
         </v-card>
       </v-col>
     </v-row>
+    <dialog-submit ref="ref_dialog_submit"></dialog-submit>
   </div>
 </template>
 <script>
+import dialogSubmit from '@/components/task/dialog-submit.vue'
 const moment = require('moment')
 moment.locale('id')
 export default {
+  components: {
+    'dialog-submit': dialogSubmit,
+  },
   filters: {
     waktu(value) {
       if (!value) return ''
@@ -84,6 +93,13 @@ export default {
     const id = this.$route.params.id
     this.get_detail(id)
   },
+  mounted() {
+    const id = this.$route.params.id
+    this.$nuxt.$on('reload_api_detail', () => {
+      console.log('reload_api_detail')
+      this.get_detail(id)
+    })
+  },
   methods: {
     get_detail(id = '') {
       this.$axios
@@ -106,6 +122,10 @@ export default {
             this.time_finished = res.data[0].time_finished
           }
         })
+    },
+    kumpulkan_tugas() {
+      this.$refs.ref_dialog_submit.id_tugas = this.id
+      this.$refs.ref_dialog_submit.dialog = true
     },
   },
 }

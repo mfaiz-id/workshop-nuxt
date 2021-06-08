@@ -35,7 +35,6 @@ export default {
             this.tasks = x.data
           }
         })
-        .catch((err) => console.log(err))
     },
   },
 }
