@@ -41,8 +41,8 @@ export default {
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    baseURL: 'http://127.0.0.1:3333',
-    // baseURL: 'https://api.ansyori.my.id',
+    // baseURL: 'http://127.0.0.1:3333',
+    baseURL: 'https://api.ansyori.my.id',
   },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify

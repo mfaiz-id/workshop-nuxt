@@ -70,7 +70,7 @@ export default {
   },
   methods: {
     to_detail(id) {
-      this.$router.push('/task/' + id)
+      this.$emit('to', id)
     },
   },
 }

@@ -2,7 +2,7 @@
   <div>
     <v-row>
       <v-col v-for="(task, index) in tasks" :key="index" cols="12" md="4">
-        <card-task :taskcp="task"></card-task>
+        <card-task :taskcp="task" @to="to_detail"></card-task>
       </v-col>
     </v-row>
   </div>
@@ -35,6 +35,9 @@ export default {
             this.tasks = x.data
           }
         })
+    },
+    to_detail(id) {
+      this.$router.push('/task/' + id)
     },
   },
 }

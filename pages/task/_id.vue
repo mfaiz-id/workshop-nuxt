@@ -32,6 +32,7 @@
                 <img
                   v-if="type_file == 'image'"
                   :src="attachment_file"
+                  style="width: 100%"
                   alt=""
                 />
                 <iframe
